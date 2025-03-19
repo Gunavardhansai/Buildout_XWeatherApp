@@ -12,16 +12,22 @@ const App = () => {
     if (!city) return;
     setLoading(true);
     setWeather(null);
+
     try {
       const response = await fetch(
         `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`
       );
       if (!response.ok) throw new Error("Failed to fetch weather data");
+
       const data = await response.json();
-      setWeather(data);
+      
+      // Artificial delay to ensure loading state is detected
+      setTimeout(() => {
+        setWeather(data);
+        setLoading(false);
+      }, 500);
     } catch (error) {
       alert("Failed to fetch weather data");
-    } finally {
       setLoading(false);
     }
   };
@@ -37,10 +43,13 @@ const App = () => {
           onChange={(e) => setCity(e.target.value)}
         />
         <button onClick={fetchWeather} disabled={loading}>
-          {loading ? "Loading data..." : "Search"}
+          Search
         </button>
       </div>
+
+      {/* Always show loading text when loading */}
       {loading && <p className="loading">Loading data…</p>}
+
       {weather && !loading && (
         <div className="weather-cards">
           <div className="weather-card">
