@@ -36,10 +36,12 @@ const App = () => {
           value={city}
           onChange={(e) => setCity(e.target.value)}
         />
-        <button onClick={fetchWeather}>Search</button>
+        <button onClick={fetchWeather} disabled={loading}>
+          {loading ? "Loading..." : "Search"}
+        </button>
       </div>
       {loading && <p className="loading">Loading data…</p>}
-      {weather && (
+      {weather && !loading && (
         <div className="weather-cards">
           <div className="weather-card">
             Temperature: {weather.current.temp_c}°C
