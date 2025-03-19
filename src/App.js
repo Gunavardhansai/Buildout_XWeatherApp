@@ -37,7 +37,7 @@ const App = () => {
           onChange={(e) => setCity(e.target.value)}
         />
         <button onClick={fetchWeather} disabled={loading}>
-          {loading ? "Loading..." : "Search"}
+          {loading ? "Loading data..." : "Search"}
         </button>
       </div>
       {loading && <p className="loading">Loading data…</p>}
